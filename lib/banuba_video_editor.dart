@@ -1,13 +1,9 @@
-
 import 'dart:async';
 
-import 'package:flutter/services.dart';
+import 'banuba_video_editor_api.dart';
 
 class BanubaVideoEditor {
-  static const MethodChannel _channel = MethodChannel('banuba_video_editor');
-
-  static Future<String?> get platformVersion async {
-    final String? version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
+  static late final BanubaVideoEditorApi _api = BanubaVideoEditorApi();
+  static Future<VideoEditResult> selectAndEditVideo() =>
+      _api.startEditorFromCamera();
 }
