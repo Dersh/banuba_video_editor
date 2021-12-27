@@ -1,15 +1,24 @@
 # banuba_video_editor
 
-A new flutter plugin project.
+## Integration steps
 
-## Getting Started
-
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+### Android
+* add banuba token in app/src/main/res/values/string.xml
+```
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="banuba_token">TOKEN</string>
+</resources>
+```
+* add in app/build.gradle inside android {}
+```
+    packagingOptions {
+        pickFirst '**/libyuv.so'
+    }
+```
+* add banuba dependencies in app/build.gradle dependencies section
+* add di files 
+* add a class that extends the FlutterApplication and contains the startKoin function in onCreate method
+* add this class name to app/src/main/AndroidManifest.xml in application.name
+* add config files inside the android/app/src/main/assets folder
+* add styles in app/src/main/res/values/styles.xml and add VideoCreationActivity inside application tag in app/src/main/AndroidManifest.xml

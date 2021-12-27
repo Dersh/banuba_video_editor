@@ -1,8 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.levl.banuba.banuba_video_editor_example">
+    package="com.levl.banuba.banuba_video_editor_example"
+    xmlns:tools="http://schemas.android.com/tools">
    <application
         android:label="banuba_video_editor_example"
-        android:name="${applicationName}"
+        android:name=".Application"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -25,6 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+       <activity
+               android:name="com.banuba.sdk.ve.flow.VideoCreationActivity"
+               android:screenOrientation="portrait"
+               android:theme="@style/CustomIntegrationAppTheme"
+               android:windowSoftInputMode="adjustResize"
+               tools:replace="android:theme" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
