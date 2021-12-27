@@ -15,7 +15,23 @@ A new flutter plugin project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '9.0'
+  s.platform = :ios, '11.0'
+  s.dependency 'BanubaARCloudSDK', '1.20.0' #optional
+  s.dependency 'BanubaVideoEditorSDK', '1.20.0'
+  s.dependency 'BanubaAudioBrowserSDK', '1.20.0' #optional
+  s.dependency 'BanubaMusicEditorSDK', '1.20.0'
+  s.dependency'BanubaOverlayEditorSDK', '1.20.0'
+  s.dependency 'BanubaEffectPlayer', '1.20.0' #optional
+  s.dependency 'BanubaSDK', '1.20.0' #optional
+  s.dependency 'BanubaSDKSimple', '1.20.0'
+  s.dependency 'BanubaSDKServicing', '1.20.0'
+  s.dependency 'VideoEditor', '1.20.0'
+  s.dependency 'BanubaUtilities', '1.20.0'
+  s.dependency 'BanubaVideoEditorGallerySDK', '1.20.0' #optional
+  s.dependency 'BanubaVideoEditorEffectsSDK', '1.20.0'
+  s.dependency 'BanubaLicenseServicingSDK', '1.20.0'
+  s.dependency 'BanubaVideoEditorTrimSDK', '1.20.0'
+  s.dependency 'BNBLicenseUtils', '1.20.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
