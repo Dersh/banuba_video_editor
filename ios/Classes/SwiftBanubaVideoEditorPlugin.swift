@@ -1,12 +1,7 @@
 import Flutter
 import UIKit
 import BanubaVideoEditorSDK
-import BanubaMusicEditorSDK
-import BanubaOverlayEditorSDK
 import VideoEditor
-import AVFoundation
-import AVKit
-import Photos
 
 typealias Completion = (FLTVideoEditResult?, FlutterError?) -> Void
 
