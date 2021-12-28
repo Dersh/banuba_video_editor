@@ -22,3 +22,7 @@
 * add this class name to app/src/main/AndroidManifest.xml in application.name
 * add config files inside the android/app/src/main/assets folder
 * add styles in app/src/main/res/values/styles.xml and add VideoCreationActivity inside application tag in app/src/main/AndroidManifest.xml
+
+### Ios
+* add pod dependencies to Podfile
+* add usage desctiptions in Info.plist
