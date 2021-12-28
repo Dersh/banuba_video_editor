@@ -15,6 +15,9 @@
     packagingOptions {
         pickFirst '**/libyuv.so'
     }
+        kotlinOptions {
+        jvmTarget = '1.8'
+    }
 ```
 * add banuba dependencies in app/build.gradle dependencies section
 * add di files 
