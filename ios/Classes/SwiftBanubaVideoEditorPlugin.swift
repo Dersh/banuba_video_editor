@@ -8,17 +8,19 @@ import AVFoundation
 import AVKit
 import Photos
 
+typealias Completion = (FLTVideoEditResult?, FlutterError?) -> Void
+
 
 public class SwiftBanubaVideoEditorPlugin: NSObject, FlutterPlugin, FLTBanubaVideoEditorApi {
-    private var _completion: (FLTVideoEditResult?, FlutterError?) -> Void
+    private var _completion: Completion?
     private var videoEditorSDK: BanubaVideoEditor?
-
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
         FLTBanubaVideoEditorApiSetup(registrar.messenger(), SwiftBanubaVideoEditorPlugin())
     }
     
     public func startEditorFromCamera(completion: @escaping (FLTVideoEditResult?, FlutterError?) -> Void) {
-        guard  let controller = UIApplication.shared.keyWindow?.rootViewController as? FlutterViewController else {completeWithError(code: "CONTROLLER", message: "Failed to get rootController") }
+        guard  let controller = UIApplication.shared.keyWindow?.rootViewController as? FlutterViewController else {completeWithError(code: "CONTROLLER", message: "Failed to get rootController"); return;}
         
         _completion = completion
         let config = createVideoEditorConfiguration()
@@ -45,17 +47,18 @@ public class SwiftBanubaVideoEditorPlugin: NSObject, FlutterPlugin, FLTBanubaVid
     
     
     func completeWithError(code: String, message: String) {
-        if(self._completion != nil) {
-            _completion(nil,FlutterError(code: code, message: message, details: nil))
-        }
+        guard let completion = _completion else { return; }
+        
+        completion(nil,FlutterError(code: code, message: message, details: nil))
+        
     }
     
     func completeWithSuccess(videoPath: String) {
-        if(self._completion != nil) {
-            let result = FLTVideoEditResult.init();
-            result.filepath = videoPath
-            _completion(result, nil)
-        }
+        guard let completion = _completion else { return; }
+        let result = FLTVideoEditResult.init();
+        result.filepath = videoPath
+        completion(result, nil)
+        
     }
     
 }
@@ -84,7 +87,7 @@ extension SwiftBanubaVideoEditorPlugin: BanubaVideoEditorDelegate {
         
         let exportConfiguration = ExportVideoConfiguration(
             fileURL: videoURL,
-            quality: .auto,
+            quality: .videoConfiguration(ExportVideoInfo(resolution: ExportVideoInfo.Resolution.fullHd1080, useHEVCCodecIfPossible: true, frameRate: 60)),
             useHEVCCodecIfPossible: true,
             watermarkConfiguration: nil
         )
@@ -100,8 +103,8 @@ extension SwiftBanubaVideoEditorPlugin: BanubaVideoEditorDelegate {
                 self.videoEditorSDK?.clearSessionData()
                 if success {
                     self.completeWithSuccess(videoPath:videoURL.path)
-                } else if error != nil {
-                    self.completeWithError(code: "EXPORT", message: "Failed to export created video: \(error)")
+                } else if let error_data = error {
+                    self.completeWithError(code: "EXPORT", message: "Failed to export created video: \(error_data)")
                 }
                 self.videoEditorSDK = nil
             }
