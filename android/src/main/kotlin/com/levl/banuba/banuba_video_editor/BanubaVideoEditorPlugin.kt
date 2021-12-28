@@ -74,8 +74,13 @@ class BanubaVideoEditorPlugin : FlutterPlugin, BanubaVideoEditorPluginApi.Banuba
         if (resultCode == RESULT_OK && requestCode == VIDEO_EDITOR_REQUEST_CODE) {
             val exportedVideoResult =
                 intent?.getParcelableExtra(EXTRA_EXPORTED_SUCCESS) as? ExportResult.Success
+            if(exportedVideoResult == null || exportedVideoResult.videoList.isEmpty()) {
+                finishWithError(Exception("Empty result or video list"))
+                return true
+            }
+            val video = exportedVideoResult.videoList.first()
 
-            finishWithSuccess(exportedVideoResult.toString())
+            finishWithSuccess(video.sourceUri.path)
             return true
         } else if (resultCode == RESULT_CANCELED && requestCode == VIDEO_EDITOR_REQUEST_CODE) {
             finishWithSuccess(null)
