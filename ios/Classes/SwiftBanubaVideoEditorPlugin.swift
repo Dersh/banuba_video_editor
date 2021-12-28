@@ -48,7 +48,7 @@ public class SwiftBanubaVideoEditorPlugin: NSObject, FlutterPlugin, FLTBanubaVid
         
     }
     
-    func completeWithSuccess(videoPath: String) {
+    func completeWithSuccess(videoPath: String?) {
         guard let completion = _completion else { return; }
         let result = FLTVideoEditResult.init();
         result.filepath = videoPath
@@ -64,6 +64,7 @@ extension SwiftBanubaVideoEditorPlugin: BanubaVideoEditorDelegate {
     public func videoEditorDidCancel(_ videoEditor: BanubaVideoEditor) {
         videoEditor.dismissVideoEditor(animated: true) {
             self.videoEditorSDK = nil
+            self.completeWithSuccess(videoPath:nil)
         }
     }
     
