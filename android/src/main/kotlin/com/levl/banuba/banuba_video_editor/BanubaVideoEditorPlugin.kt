@@ -55,6 +55,10 @@ class BanubaVideoEditorPlugin : FlutterPlugin, BanubaVideoEditorPluginApi.Banuba
     }
 
     override fun startEditorFromCamera(result: BanubaVideoEditorPluginApi.Result<BanubaVideoEditorPluginApi.VideoEditResult>?) {
+        if (pendingResult != null) {
+            result?.error(Exception("Video editor is already active."))
+            return
+        }
         pendingResult = result
         activity?.let {
             it.startActivityForResult(
@@ -85,14 +89,13 @@ class BanubaVideoEditorPlugin : FlutterPlugin, BanubaVideoEditorPluginApi.Banuba
         } else if (resultCode == RESULT_CANCELED && requestCode == VIDEO_EDITOR_REQUEST_CODE) {
             finishWithSuccess(null)
             return true
+        } else if (requestCode == VIDEO_EDITOR_REQUEST_CODE) {
+            finishWithError(Exception("Unknown activity error."));
         }
         return false
     }
 
     private fun finishWithError(error: Throwable) {
-        if (pendingResult == null) {
-            return
-        }
         pendingResult?.error(error)
         clearPendingResult()
     }
