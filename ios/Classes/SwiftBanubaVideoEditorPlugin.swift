@@ -39,8 +39,9 @@ public class SwiftBanubaVideoEditorPlugin: NSObject, FlutterPlugin, FLTBanubaVid
     }
     
     private func createVideoEditorConfiguration() -> VideoEditorConfig {
-        let config = VideoEditorConfig()
-        // Do customization here
+        var config = VideoEditorConfig()
+        config.videoDurationConfiguration.maximumVideoDuration = 180.0
+        config.videoDurationConfiguration.minimumVideoDuration = 10.0
         return config
     }
     
