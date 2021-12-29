@@ -16,6 +16,10 @@ public class SwiftBanubaVideoEditorPlugin: NSObject, FlutterPlugin, FLTBanubaVid
     
     public func startEditorFromCamera(completion: @escaping (FLTVideoEditResult?, FlutterError?) -> Void) {
         guard  let controller = UIApplication.shared.keyWindow?.rootViewController as? FlutterViewController else {completeWithError(code: "CONTROLLER", message: "Failed to get rootController"); return;}
+        if _completion != nil {
+            completion(nil,FlutterError(code: "ALREADY_ACTIVE", message: "Video editor is already active.", details: nil))
+            return
+        }
         
         _completion = completion
         let config = createVideoEditorConfiguration()
