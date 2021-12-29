@@ -45,6 +45,7 @@ public class SwiftBanubaVideoEditorPlugin: NSObject, FlutterPlugin, FLTBanubaVid
         guard let completion = _completion else { return; }
         
         completion(nil,FlutterError(code: code, message: message, details: nil))
+        clearCompletion()
         
     }
     
@@ -53,7 +54,12 @@ public class SwiftBanubaVideoEditorPlugin: NSObject, FlutterPlugin, FLTBanubaVid
         let result = FLTVideoEditResult.init();
         result.filepath = videoPath
         completion(result, nil)
+        clearCompletion()
         
+    }
+    
+    func clearCompletion() {
+        _completion = nil
     }
     
 }

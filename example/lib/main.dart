@@ -27,8 +27,8 @@ class _MyAppState extends State<MyApp> {
           child: TextButton(
             child: Text("Open editor"),
             onPressed: () async {
-              final result = await BanubaVideoEditor.selectAndEditVideo();
-              print(result.filepath);
+              final result = await BanubaVideoEditor.startEditorFromCamera();
+              print("RESULT: ${result.filepath}");
             },
           ),
         ),
