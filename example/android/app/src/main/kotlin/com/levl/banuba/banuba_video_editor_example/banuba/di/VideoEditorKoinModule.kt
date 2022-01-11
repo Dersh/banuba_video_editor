@@ -10,6 +10,7 @@ import com.banuba.sdk.export.data.ExportParamsProvider
 import com.banuba.sdk.export.data.ForegroundExportFlowManager
 import com.banuba.sdk.ve.effects.WatermarkProvider
 import com.banuba.sdk.ve.flow.FlowEditorModule
+import com.banuba.sdk.veui.domain.CoverProvider
 import org.koin.core.definition.BeanDefinition
 import org.koin.core.qualifier.named
 
@@ -55,5 +56,10 @@ class VideoEditorKoinModule : FlowEditorModule() {
             ?.buildUpon()
             ?.appendPath("export")
             ?.build() ?: throw NullPointerException("exportDir should't be null!")
+    }
+
+
+    override val coverProvider: BeanDefinition<CoverProvider> = single(override = true) {
+        CoverProvider.EXTENDED
     }
 }
