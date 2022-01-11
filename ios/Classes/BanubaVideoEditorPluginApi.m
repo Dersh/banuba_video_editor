@@ -34,10 +34,14 @@ static NSDictionary<NSString *, id> *wrapResult(id result, FlutterError *error) 
   if ((NSNull *)result.filepath == [NSNull null]) {
     result.filepath = nil;
   }
+  result.coverPath = dict[@"coverPath"];
+  if ((NSNull *)result.coverPath == [NSNull null]) {
+    result.coverPath = nil;
+  }
   return result;
 }
 - (NSDictionary *)toMap {
-  return [NSDictionary dictionaryWithObjectsAndKeys:(self.filepath ? self.filepath : [NSNull null]), @"filepath", nil];
+  return [NSDictionary dictionaryWithObjectsAndKeys:(self.filepath ? self.filepath : [NSNull null]), @"filepath", (self.coverPath ? self.coverPath : [NSNull null]), @"coverPath", nil];
 }
 @end
 

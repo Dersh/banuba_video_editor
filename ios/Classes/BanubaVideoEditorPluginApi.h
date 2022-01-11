@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FLTVideoEditResult : NSObject
 @property(nonatomic, copy, nullable) NSString * filepath;
+@property(nonatomic, copy, nullable) NSString * coverPath;
 @end
 
 /// The codec used by FLTBanubaVideoEditorApi.

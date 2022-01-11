@@ -10,17 +10,20 @@ import 'package:flutter/services.dart';
 
 class VideoEditResult {
   String? filepath;
+  String? coverPath;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
     pigeonMap['filepath'] = filepath;
+    pigeonMap['coverPath'] = coverPath;
     return pigeonMap;
   }
 
   static VideoEditResult decode(Object message) {
     final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
     return VideoEditResult()
-      ..filepath = pigeonMap['filepath'] as String?;
+      ..filepath = pigeonMap['filepath'] as String?
+      ..coverPath = pigeonMap['coverPath'] as String?;
   }
 }
 

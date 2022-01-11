@@ -25,15 +25,22 @@ public class BanubaVideoEditorPluginApi {
     public String getFilepath() { return filepath; }
     public void setFilepath(String setterArg) { this.filepath = setterArg; }
 
+    private String coverPath;
+    public String getCoverPath() { return coverPath; }
+    public void setCoverPath(String setterArg) { this.coverPath = setterArg; }
+
     Map<String, Object> toMap() {
       Map<String, Object> toMapResult = new HashMap<>();
       toMapResult.put("filepath", filepath);
+      toMapResult.put("coverPath", coverPath);
       return toMapResult;
     }
     static VideoEditResult fromMap(Map<String, Object> map) {
       VideoEditResult fromMapResult = new VideoEditResult();
       Object filepath = map.get("filepath");
       fromMapResult.filepath = (String)filepath;
+      Object coverPath = map.get("coverPath");
+      fromMapResult.coverPath = (String)coverPath;
       return fromMapResult;
     }
   }

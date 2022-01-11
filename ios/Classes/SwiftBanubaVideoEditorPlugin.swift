@@ -54,10 +54,11 @@ public class SwiftBanubaVideoEditorPlugin: NSObject, FlutterPlugin, FLTBanubaVid
         
     }
     
-    func completeWithSuccess(videoPath: String?) {
+    func completeWithSuccess(videoPath: String?, coverPath: String?) {
         guard let completion = _completion else { return; }
         let result = FLTVideoEditResult.init();
         result.filepath = videoPath
+        result.coverPath = coverPath
         completion(result, nil)
         clearCompletion()
         
@@ -75,7 +76,7 @@ extension SwiftBanubaVideoEditorPlugin: BanubaVideoEditorDelegate {
     public func videoEditorDidCancel(_ videoEditor: BanubaVideoEditor) {
         videoEditor.dismissVideoEditor(animated: true) {
             self.videoEditorSDK = nil
-            self.completeWithSuccess(videoPath:nil)
+            self.completeWithSuccess(videoPath:nil, coverPath:nil)
         }
     }
     
@@ -88,6 +89,8 @@ extension SwiftBanubaVideoEditorPlugin: BanubaVideoEditorDelegate {
         let manager = FileManager.default
         let filePath = UUID().uuidString
         let videoURL = manager.temporaryDirectory.appendingPathComponent("\(filePath).mov")
+        let coverPath = UUID().uuidString
+        let coverURL = manager.temporaryDirectory.appendingPathComponent("\(coverPath)")
         if manager.fileExists(atPath: videoURL.path) {
             try? manager.removeItem(at: videoURL)
         }
@@ -109,7 +112,16 @@ extension SwiftBanubaVideoEditorPlugin: BanubaVideoEditorDelegate {
             DispatchQueue.main.async {
                 self.videoEditorSDK?.clearSessionData()
                 if success {
-                    self.completeWithSuccess(videoPath:videoURL.path)
+                    if let data = exportCoverImages?.coverImage?.pngData() ?? exportCoverImages?.coverImage?.jpegData(compressionQuality: 1) {
+                        do {
+                            try  data.write(to: coverURL)
+                        } catch {
+                            self.completeWithError(code: "EXPORT", message: "Unable to Write \(coverURL) Cover Data to Disk")
+                            return
+                        }
+                    }
+                    
+                    self.completeWithSuccess(videoPath:videoURL.path, coverPath: coverURL.path)
                 } else if let error_data = error {
                     self.completeWithError(code: "EXPORT", message: "Failed to export created video: \(error_data)")
                 }

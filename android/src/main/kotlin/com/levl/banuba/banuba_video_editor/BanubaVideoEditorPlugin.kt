@@ -84,10 +84,10 @@ class BanubaVideoEditorPlugin : FlutterPlugin, BanubaVideoEditorPluginApi.Banuba
             }
             val video = exportedVideoResult.videoList.first()
 
-            finishWithSuccess(video.sourceUri.path)
+            finishWithSuccess(video.sourceUri.path, exportedVideoResult.preview.path)
             return true
         } else if (resultCode == RESULT_CANCELED && requestCode == VIDEO_EDITOR_REQUEST_CODE) {
-            finishWithSuccess(null)
+            finishWithSuccess(null,null)
             return true
         } else if (requestCode == VIDEO_EDITOR_REQUEST_CODE) {
             finishWithError(Exception("Unknown activity error."));
@@ -100,9 +100,10 @@ class BanubaVideoEditorPlugin : FlutterPlugin, BanubaVideoEditorPluginApi.Banuba
         clearPendingResult()
     }
 
-    private fun finishWithSuccess(videoPath: String?) {
+    private fun finishWithSuccess(videoPath: String?, coverPath: String?) {
         val result = BanubaVideoEditorPluginApi.VideoEditResult()
         result.filepath = videoPath
+        result.coverPath = coverPath
         pendingResult?.success(result)
         clearPendingResult()
     }
