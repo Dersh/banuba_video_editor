@@ -30,9 +30,9 @@ static NSDictionary<NSString *, id> *wrapResult(id result, FlutterError *error) 
 @implementation FLTVideoEditResult
 + (FLTVideoEditResult *)fromMap:(NSDictionary *)dict {
   FLTVideoEditResult *result = [[FLTVideoEditResult alloc] init];
-  result.filepath = dict[@"filepath"];
-  if ((NSNull *)result.filepath == [NSNull null]) {
-    result.filepath = nil;
+  result.filePath = dict[@"filePath"];
+  if ((NSNull *)result.filePath == [NSNull null]) {
+    result.filePath = nil;
   }
   result.coverPath = dict[@"coverPath"];
   if ((NSNull *)result.coverPath == [NSNull null]) {
@@ -41,7 +41,7 @@ static NSDictionary<NSString *, id> *wrapResult(id result, FlutterError *error) 
   return result;
 }
 - (NSDictionary *)toMap {
-  return [NSDictionary dictionaryWithObjectsAndKeys:(self.filepath ? self.filepath : [NSNull null]), @"filepath", (self.coverPath ? self.coverPath : [NSNull null]), @"coverPath", nil];
+  return [NSDictionary dictionaryWithObjectsAndKeys:(self.filePath ? self.filePath : [NSNull null]), @"filePath", (self.coverPath ? self.coverPath : [NSNull null]), @"coverPath", nil];
 }
 @end
 

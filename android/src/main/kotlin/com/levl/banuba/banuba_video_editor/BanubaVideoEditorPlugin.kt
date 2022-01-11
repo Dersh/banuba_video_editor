@@ -102,7 +102,7 @@ class BanubaVideoEditorPlugin : FlutterPlugin, BanubaVideoEditorPluginApi.Banuba
 
     private fun finishWithSuccess(videoPath: String?, coverPath: String?) {
         val result = BanubaVideoEditorPluginApi.VideoEditResult()
-        result.filepath = videoPath
+        result.filePath = videoPath
         result.coverPath = coverPath
         pendingResult?.success(result)
         clearPendingResult()

@@ -9,12 +9,12 @@ import 'package:flutter/foundation.dart' show WriteBuffer, ReadBuffer;
 import 'package:flutter/services.dart';
 
 class VideoEditResult {
-  String? filepath;
+  String? filePath;
   String? coverPath;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
-    pigeonMap['filepath'] = filepath;
+    pigeonMap['filePath'] = filePath;
     pigeonMap['coverPath'] = coverPath;
     return pigeonMap;
   }
@@ -22,7 +22,7 @@ class VideoEditResult {
   static VideoEditResult decode(Object message) {
     final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
     return VideoEditResult()
-      ..filepath = pigeonMap['filepath'] as String?
+      ..filePath = pigeonMap['filePath'] as String?
       ..coverPath = pigeonMap['coverPath'] as String?;
   }
 }

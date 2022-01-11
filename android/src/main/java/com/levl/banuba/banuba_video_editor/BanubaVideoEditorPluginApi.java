@@ -21,9 +21,9 @@ public class BanubaVideoEditorPluginApi {
 
   /** Generated class from Pigeon that represents data sent in messages. */
   public static class VideoEditResult {
-    private String filepath;
-    public String getFilepath() { return filepath; }
-    public void setFilepath(String setterArg) { this.filepath = setterArg; }
+    private String filePath;
+    public String getFilePath() { return filePath; }
+    public void setFilePath(String setterArg) { this.filePath = setterArg; }
 
     private String coverPath;
     public String getCoverPath() { return coverPath; }
@@ -31,14 +31,14 @@ public class BanubaVideoEditorPluginApi {
 
     Map<String, Object> toMap() {
       Map<String, Object> toMapResult = new HashMap<>();
-      toMapResult.put("filepath", filepath);
+      toMapResult.put("filePath", filePath);
       toMapResult.put("coverPath", coverPath);
       return toMapResult;
     }
     static VideoEditResult fromMap(Map<String, Object> map) {
       VideoEditResult fromMapResult = new VideoEditResult();
-      Object filepath = map.get("filepath");
-      fromMapResult.filepath = (String)filepath;
+      Object filePath = map.get("filePath");
+      fromMapResult.filePath = (String)filePath;
       Object coverPath = map.get("coverPath");
       fromMapResult.coverPath = (String)coverPath;
       return fromMapResult;

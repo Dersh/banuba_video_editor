@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class FLTVideoEditResult;
 
 @interface FLTVideoEditResult : NSObject
-@property(nonatomic, copy, nullable) NSString * filepath;
+@property(nonatomic, copy, nullable) NSString * filePath;
 @property(nonatomic, copy, nullable) NSString * coverPath;
 @end
 

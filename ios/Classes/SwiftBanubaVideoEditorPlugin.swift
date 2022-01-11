@@ -57,7 +57,7 @@ public class SwiftBanubaVideoEditorPlugin: NSObject, FlutterPlugin, FLTBanubaVid
     func completeWithSuccess(videoPath: String?, coverPath: String?) {
         guard let completion = _completion else { return; }
         let result = FLTVideoEditResult.init();
-        result.filepath = videoPath
+        result.filePath = videoPath
         result.coverPath = coverPath
         completion(result, nil)
         clearCompletion()
