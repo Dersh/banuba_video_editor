@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
           child: Text("Open editor"),
           onPressed: () async {
             final result = await BanubaVideoEditor.startEditorFromCamera();
-            print("RESULT: ${result.filepath}");
+            print("RESULT: ${result.filePath}");
             if (result.coverPath?.isNotEmpty ?? false) {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (_) => Image.file(File(result.coverPath!))));
