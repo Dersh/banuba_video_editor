@@ -89,8 +89,7 @@ extension SwiftBanubaVideoEditorPlugin: BanubaVideoEditorDelegate {
         let manager = FileManager.default
         let filePath = UUID().uuidString
         let videoURL = manager.temporaryDirectory.appendingPathComponent("\(filePath).mov")
-        let coverPath = UUID().uuidString
-        let coverURL = manager.temporaryDirectory.appendingPathComponent("\(coverPath)")
+        var coverURL : URL?
         if manager.fileExists(atPath: videoURL.path) {
             try? manager.removeItem(at: videoURL)
         }
@@ -114,14 +113,17 @@ extension SwiftBanubaVideoEditorPlugin: BanubaVideoEditorDelegate {
                 if success {
                     if let data = exportCoverImages?.coverImage?.pngData() ?? exportCoverImages?.coverImage?.jpegData(compressionQuality: 1) {
                         do {
-                            try  data.write(to: coverURL)
+                            let coverPath = UUID().uuidString
+                            coverURL = manager.temporaryDirectory.appendingPathComponent("\(coverPath)\(exportCoverImages?.coverImage?.pngData() != nil ? ".png" : ".jpg")")
+                            
+                            try  data.write(to: coverURL!)
                         } catch {
-                            self.completeWithError(code: "EXPORT", message: "Unable to Write \(coverURL) Cover Data to Disk")
+                            self.completeWithError(code: "EXPORT", message: "Unable to Write \(String(describing: coverURL)) Cover Data to Disk")
                             return
                         }
                     }
                     
-                    self.completeWithSuccess(videoPath:videoURL.path, coverPath: coverURL.path)
+                    self.completeWithSuccess(videoPath:videoURL.path, coverPath: coverURL?.path)
                 } else if let error_data = error {
                     self.completeWithError(code: "EXPORT", message: "Failed to export created video: \(error_data)")
                 }
